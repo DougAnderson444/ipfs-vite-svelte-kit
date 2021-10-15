@@ -1,6 +1,6 @@
 # IPFS with Vite, SvelteKit
 
-## Steps to Resporduce
+## Steps to Resproduce
 
 - Install SvelteKit
 
@@ -72,3 +72,48 @@ onMount(async () => {
 	console.info('nodeId', nodeId);
 });
 ```
+
+- Run the app:
+
+```
+npm run dev
+```
+
+- Build the app:
+
+Install the [adapater for static](https://github.com/sveltejs/kit/tree/master/packages/adapter-static) sites:
+
+```
+npm i -D @sveltejs/adapter-static@next
+```
+
+then add the adapter to your `svelte.config.js`:
+
+```js
+// svelte.config.js
+import adapter from '@sveltejs/adapter-static';
+
+export default {
+	kit: {
+		adapter: adapter()
+	}
+};
+```
+
+and build
+
+```
+npm run build
+```
+
+and preview
+
+```
+npm run preview
+```
+
+open in localhost
+
+### Thanks
+
+Many credits go to Gozala's [https://github.com/Gozala/replicator](https://github.com/Gozala/replicator) for figuring much of this out.
