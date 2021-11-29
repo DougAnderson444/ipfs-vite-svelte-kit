@@ -1,6 +1,6 @@
 # IPFS with Vite, SvelteKit
 
-## Steps to Resproduce
+## Steps to Reproduce
 
 - Install SvelteKit
 
@@ -113,6 +113,10 @@ npm run preview
 ```
 
 open in localhost
+
+### DAG Building
+
+The example usage is using ipfs.dag.put() with dag-pb to mimic what happens by default with ipfs.add()
 
 ### Thanks
 
