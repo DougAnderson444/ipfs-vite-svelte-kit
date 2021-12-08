@@ -50,7 +50,13 @@ if (globalThis && globalThis.process && globalThis.process.env)
 	},
 ```
 
-- run the esbuild script. Results are now in
+- run the esbuild script:
+
+```
+npm run build:ipfs
+```
+
+Results are now in
 
 `src\modules\ipfs-core\ipfs-core.js`
 
