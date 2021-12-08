@@ -40,7 +40,7 @@ if (globalThis && globalThis.process && globalThis.process.env)
 
 - We need to build ipfs-core for the browser, use esbuild to do so
 
-`npm i -D esbuild esbuild ./node_modules/ipfs-core --bundle --format=esm --sourcemap --main-fields=browser,module,main --inject:./src/node-globals.js --define:process.env.NODE_ENV='\"production\"' --splitting --outdir=./src/modules/ipfs-core`
+`npm i -D esbuild`
 
 - Add a shotcut for the above in package.json
 
