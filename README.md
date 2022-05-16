@@ -46,7 +46,7 @@ if (globalThis && globalThis.process && globalThis.process.env)
 
 ```js
 	"scripts": {
-		"build:ipfs": "esbuild ./node_modules/ipfs-core --bundle --format=esm --sourcemap --main-fields=browser,module,main --inject:./src/node-globals.js --define:process.env.NODE_ENV='\"production\"' --splitting --outdir=./src/modules/ipfs-core"
+		"build:ipfs": "esbuild ./node_modules/ipfs-core --bundle --format=esm --sourcemap --main-fields=browser,module,main --inject:./src/node-globals.js --define:globalThis.process.env.NODE_ENV='\"production\"' --splitting --outdir=./src/modules/ipfs-core"
 	},
 ```
 
@@ -68,14 +68,17 @@ Results are now in
 import { onMount } from 'svelte';
 
 onMount(async () => {
-	const IPFSmodule = await import('../modules/ipfs-core/ipfs-core.js');
-	const IPFS = IPFSmodule.default;
-	console.log({ IPFS });
-	const ipfsNode = await IPFS.create();
-	console.log({ ipfsNode });
-	const identity = await ipfsNode.id();
-	nodeId = identity.id;
-	console.info('nodeId', nodeId);
+	// In Svelte, a hot module refresh can cause lockfile problems
+	// so we assign the ipfs node to globalThis to avoid lock file issues
+	if (!globalThis.ipfsNode) {
+		// no ipfs saved to globalThis, so load it up
+		const IPFSmodule = await import('../modules/ipfs-core/ipfs-core.js');
+		const IPFS = IPFSmodule.default;
+		ipfsNode = await IPFS.create();
+		globalThis.ipfsNode = ipfsNode;
+	} else {
+		ipfsNode = globalThis.ipfsNode;
+	}
 });
 ```
 

@@ -19,13 +19,12 @@
 			// no ipfs saved to globalThis, so load it up
 			const IPFSmodule = await import('../modules/ipfs-core/ipfs-core.js');
 			const IPFS = IPFSmodule.default;
-			console.log({ IPFS });
 			ipfsNode = await IPFS.create();
 			globalThis.ipfsNode = ipfsNode;
 		} else {
 			ipfsNode = globalThis.ipfsNode;
 		}
-		console.log({ ipfsNode });
+
 		const identity = await ipfsNode.id();
 		nodeId = identity.id;
 		// console.info('nodeId', nodeId);
