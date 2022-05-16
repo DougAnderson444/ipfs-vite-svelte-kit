@@ -120,6 +120,16 @@ npm run preview
 
 open in localhost
 
+## process.env.NODE_ENV in Svelte Dev
+
+Note that in dev mode, sveltekit replaces `globalThis.process.env.NODE_ENV` with `globalThis."development"` thus screwing up the dev process. When we esbuild, to prevent sveltekit from doing this, we replace `globalThis.process.env.NODE_ENV` accordingly.
+
+```cli
+// package.json
+
+"build:ipfs": "esbuild ... --define:globalThis.process.env.NODE_ENV='\"production\"' ... "
+```
+
 ### DAG Building
 
 The example usage is using ipfs.dag.put() with dag-pb to mimic what happens by default with ipfs.add()

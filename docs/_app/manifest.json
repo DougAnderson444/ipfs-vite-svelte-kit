@@ -1,0 +1,92 @@
+{
+  ".svelte-kit/runtime/client/start.js": {
+    "file": "start-46b5189f.js",
+    "src": ".svelte-kit/runtime/client/start.js",
+    "isEntry": true,
+    "imports": [
+      "_index-4d7732b1.js",
+      "_paths-aded2850.js",
+      "_preload-helper-05a83733.js"
+    ],
+    "dynamicImports": [
+      "src/routes/__layout.svelte",
+      ".svelte-kit/runtime/components/error.svelte",
+      "src/routes/about.svelte",
+      "src/routes/index.svelte"
+    ]
+  },
+  "src/routes/__layout.svelte": {
+    "file": "pages/__layout.svelte-bcd69d82.js",
+    "src": "src/routes/__layout.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-4d7732b1.js",
+      "_paths-aded2850.js"
+    ],
+    "css": [
+      "assets/pages/__layout.svelte-9bdd7e97.css"
+    ],
+    "assets": [
+      "assets/svelte-logo-87df40b8.svg",
+      "assets/fira-mono-cyrillic-ext-400-normal-3df7909e.woff2",
+      "assets/fira-mono-all-400-normal-1e3b098c.woff",
+      "assets/fira-mono-cyrillic-400-normal-c7d433fd.woff2",
+      "assets/fira-mono-greek-ext-400-normal-9e2fe623.woff2",
+      "assets/fira-mono-greek-400-normal-a8be01ce.woff2",
+      "assets/fira-mono-latin-ext-400-normal-6bfabd30.woff2",
+      "assets/fira-mono-latin-400-normal-e43b3538.woff2"
+    ]
+  },
+  ".svelte-kit/runtime/components/error.svelte": {
+    "file": "error.svelte-c43c816c.js",
+    "src": ".svelte-kit/runtime/components/error.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-4d7732b1.js"
+    ]
+  },
+  "src/routes/about.svelte": {
+    "file": "pages/about.svelte-fa342e68.js",
+    "src": "src/routes/about.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-4d7732b1.js"
+    ],
+    "css": [
+      "assets/pages/about.svelte-4db5be0d.css"
+    ]
+  },
+  "src/routes/index.svelte": {
+    "file": "pages/index.svelte-a8538c16.js",
+    "src": "src/routes/index.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_preload-helper-05a83733.js",
+      "_index-4d7732b1.js"
+    ],
+    "dynamicImports": [
+      "src/modules/ipfs-core/ipfs-core.js"
+    ],
+    "css": [
+      "assets/pages/index.svelte-a55cefe2.css"
+    ]
+  },
+  "_index-4d7732b1.js": {
+    "file": "chunks/index-4d7732b1.js"
+  },
+  "_paths-aded2850.js": {
+    "file": "chunks/paths-aded2850.js"
+  },
+  "_preload-helper-05a83733.js": {
+    "file": "chunks/preload-helper-05a83733.js"
+  },
+  "src/modules/ipfs-core/ipfs-core.js": {
+    "file": "chunks/ipfs-core-53fb93ca.js",
+    "src": "src/modules/ipfs-core/ipfs-core.js",
+    "isDynamicEntry": true
+  }
+}
