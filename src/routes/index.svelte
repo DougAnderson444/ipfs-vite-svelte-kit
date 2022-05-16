@@ -5,7 +5,8 @@
 
 	let ipfsNode;
 	let nodeId;
-	let putted, added, putWithLinks;
+	let putted, added;
+	let putWithLinks, addedWithLinks;
 
 	let helloWorld = {
 		hello: 'world'
@@ -56,7 +57,10 @@
 		// WITH LINK(s)
 
 		const pbNodeWithLinks = {
-			Data: file.marshal(),
+			Data: new UnixFS({
+				type: 'file',
+				data: new Uint8Array(0)
+			}).marshal(),
 			Links: [
 				{
 					Name: 'hello',
@@ -100,7 +104,16 @@
 				.toV0()
 				.toString()}{/if}
 		<br /><br />
-		{#if putWithLinks}Explore IPLD:<br /><a
+		{#if added}ipfs.add(data) >> ipfs.cat(data):<br />
+
+			<a target="_blank" href="https://dweb.link/api/v0/cat?arg={added.cid.toV0().toString()}"
+				>{added.cid.toV0().toString()}</a
+			>
+			<br /> Check that they are the same:
+			<b> {putted.toV0().toString() === added.cid.toV0().toString()}</b>
+		{/if}
+		<br /><br />
+		{#if putWithLinks}Explore Linked Data:<br /><a
 				target="_blank"
 				href="https://explore.ipld.io/#/explore/{putWithLinks.toV0().toString()}"
 				>{putWithLinks.toV0().toString()}</a
@@ -115,6 +128,23 @@
 			CloudFlare:<br />
 			<a target="_blank" href="https://{putWithLinks.toV1().toString()}.ipfs.cf-ipfs.com/"
 				>https://[cid].ipfs.cf-ipfs.com</a
+			><br /><br />
+		{/if}
+
+		{#if addedWithLinks}Explore Add with Links:<br /><a
+				target="_blank"
+				href="ipfs://bafybeiftcyj7gao3kykwic743wuulwpzkeat4nfmzapbgz5mxsfxsnpbtu/#/explore/{addedWithLinks.cid
+					.toV0()
+					.toString()}">{addedWithLinks.cid.toV0().toString()}</a
+			>
+
+			<br />DWeb Site:<br /><a
+				target="_blank"
+				href="https://{addedWithLinks.cid.toV1().toString()}.ipfs.dweb.link/">View Data</a
+			><br />Mirror:<br />
+
+			<a target="_blank" href="https://{addedWithLinks.cid.toV1().toString()}.ipfs.cf-ipfs.com/"
+				>View Mirror Data</a
 			><br /><br />
 		{/if}
 	{:else}
