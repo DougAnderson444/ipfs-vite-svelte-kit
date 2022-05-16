@@ -3,12 +3,14 @@
 	import { fromString as uint8ArrayFromString } from 'uint8arrays/from-string';
 	import { UnixFS } from 'ipfs-unixfs';
 	import * as dagPb from '@ipld/dag-pb';
+	import toBuffer from 'it-to-buffer';
 
 	const textEncoder = new TextEncoder();
 	const textDecoder = new TextDecoder();
 
 	let nodeId;
-	let putted, added, putWithLinks;
+	let putted, added;
+	let putWithLinks, addedWithLinks;
 
 	onMount(async () => {
 		const IPFSmodule = await import('../modules/ipfs-core/ipfs-core.js');
@@ -39,20 +41,18 @@
 			format: 'dag-pb'
 		});
 
-		console.log(`https://dweb.link/api/v0/dag/get?arg=${putted.toV0().toString()}`);
-
 		// 2. save the same binary data via ipfs.add
 		added = await ipfsNode.add(JSON.stringify(helloWorld));
 
-		console.log(`https://dweb.link/api/v0/dag/get?arg=${added.cid.toV0().toString()}`);
-
 		// 3. check to see if they are the same
-		console.log(putted.toV0().toString() === added.cid.toV0().toString());
 
 		// WITH LINK(s)
 
 		const pbNodeWithLinks = {
-			Data: file.marshal(),
+			Data: new UnixFS({
+				type: 'file',
+				data: new Uint8Array(0)
+			}).marshal(),
 			Links: [
 				{
 					Name: 'hello',
@@ -66,11 +66,11 @@
 			format: 'dag-pb'
 		});
 
-		console.log(
-			`ipfs://bafybeiftcyj7gao3kykwic743wuulwpzkeat4nfmzapbgz5mxsfxsnpbtu/#/explore/${putWithLinks
-				.toV0()
-				.toString()}`
-		);
+		const gotted = await toBuffer(ipfsNode.get(putWithLinks));
+
+		console.log(gotted);
+
+		addedWithLinks = await ipfsNode.add(gotted);
 	});
 </script>
 
@@ -86,10 +86,23 @@
 		<h2>
 			IPFS loaded in a Vite app, <strong>right?!</strong>
 		</h2>
-		{#if putted}ipfs.dag.put(data)<br />{putted.toString()}{/if}<br /><br />
-		{#if added}ipfs.add(data)<br />{added.cid.toV0().toString()}{/if}
+		{#if putted}ipfs.dag.put(data) >> ipfs.dag.get(data):<br />
+
+			<a target="_blank" href="https://dweb.link/api/v0/dag/get?arg={putted.toString()}"
+				>{putted.toString()}</a
+			>
+		{/if}
 		<br /><br />
-		{#if putWithLinks}Explore IPLD:<br /><a
+		{#if added}ipfs.add(data) >> ipfs.cat(data):<br />
+
+			<a target="_blank" href="https://dweb.link/api/v0/cat?arg={added.cid.toV0().toString()}"
+				>{added.cid.toV0().toString()}</a
+			>
+			<br /> Check that they are the same:
+			<b> {putted.toV0().toString() === added.cid.toV0().toString()}</b>
+		{/if}
+		<br /><br />
+		{#if putWithLinks}Explore Linked Data:<br /><a
 				target="_blank"
 				href="ipfs://bafybeiftcyj7gao3kykwic743wuulwpzkeat4nfmzapbgz5mxsfxsnpbtu/#/explore/{putWithLinks
 					.toV0()
@@ -102,6 +115,23 @@
 			><br />Mirror:<br />
 
 			<a target="_blank" href="https://{putWithLinks.toV1().toString()}.ipfs.cf-ipfs.com/"
+				>View Mirror Data</a
+			><br /><br />
+		{/if}
+
+		{#if addedWithLinks}Explore Add with Links:<br /><a
+				target="_blank"
+				href="ipfs://bafybeiftcyj7gao3kykwic743wuulwpzkeat4nfmzapbgz5mxsfxsnpbtu/#/explore/{addedWithLinks.cid
+					.toV0()
+					.toString()}">{addedWithLinks.cid.toV0().toString()}</a
+			>
+
+			<br />DWeb Site:<br /><a
+				target="_blank"
+				href="https://{addedWithLinks.cid.toV1().toString()}.ipfs.dweb.link/">View Data</a
+			><br />Mirror:<br />
+
+			<a target="_blank" href="https://{addedWithLinks.cid.toV1().toString()}.ipfs.cf-ipfs.com/"
 				>View Mirror Data</a
 			><br /><br />
 		{/if}
