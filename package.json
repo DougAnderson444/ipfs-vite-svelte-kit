@@ -9,7 +9,8 @@
 		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. .",
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
-		"build:ipfs": "esbuild ./node_modules/ipfs-core/src/index.js --bundle --external:node:* --external:crypto --external:http --external:https --external:module --external:path --external:stream --external:assert --external:fs --external:net --external:timers --external:child_process --external:os --external:dgram --format=esm --sourcemap --main-fields=browser,module,main --inject:./src/node-globals.js --define:globalThis.process.env.NODE_ENV='\"production\"' --splitting --outdir=./src/modules/ipfs-core"
+		"build:ipfs": "esbuild ./node_modules/ipfs-core/src/index.js --bundle --external:node:* --external:crypto --external:http --external:https --external:module --external:path --external:stream --external:assert --external:fs --external:net --external:timers --external:child_process --external:os --external:dgram --format=esm --sourcemap --main-fields=browser,module,main --inject:./src/node-globals.js --define:globalThis.process.env.NODE_ENV='\"production\"' --splitting --outdir=./src/modules/ipfs-core",
+		"build:orbitdb": "esbuild ./node_modules/@orbitdb/core/src/index.js --bundle  --external:node:* --external:net --external:crypto --external:http --external:https --external:dgram --external:fs --external:child_process --external:util --format=esm --sourcemap --main-fields=browser,module,main --inject:./src/node-globals.js --define:globalThis.process.env.NODE_ENV='\"production\"' --splitting --outdir=./src/modules/orbitdb-core"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-static": "^1.0.0-next.30",
@@ -29,6 +30,7 @@
 		"@fontsource/fira-mono": "^4.5.0",
 		"@ipld/dag-pb": "^2.1.14",
 		"@lukeed/uuid": "^2.0.0",
+		"@orbitdb/core": "^1.0.0",
 		"cookie": "^0.4.1",
 		"ipfs-core": "0.18.0",
 		"ipfs-unixfs": "^6.0.6",
