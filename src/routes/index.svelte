@@ -73,6 +73,26 @@
 			storeCodec: 'dag-pb'
 		});
 
+		const dbName = "helloOrbitDB"
+		const OrbitDBModul = await import('../modules/orbitdb-core/index.js');
+		const createOrbitDB = OrbitDBModul.createOrbitDB;
+		const ipfsAccessController = OrbitDBModul.IPFSAccessController;
+		const orbitdb = await createOrbitDB({ ipfs: ipfsNode })
+		const db = await orbitdb.open(dbName,{ AccessController: ipfsAccessController({ write: ['*']})})
+		const dbAddress = db.address
+		console.log("dbAddress",dbAddress)
+		// Listen for updates from peers
+		db.events.on("update", async entry => {
+			console.log("update",entry)
+		})
+
+		// Add an entry
+		const hash = await db.add("world")
+		console.log(hash)
+
+		const all = await db.all()
+		console.log("all",all)
+
 		return () => {
 			console.log('the ipfs node is being stopped');
 			ipfsNode.stop();

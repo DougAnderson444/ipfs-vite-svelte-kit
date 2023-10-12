@@ -1,6 +1,9 @@
-# IPFS with Vite, SvelteKit
+# IPFS and OrbitDB SvelteKit
 
-## Steps to Reproduce
+Clone this directory and run it in the browser. Please see browser console for simple Orbit-DB logs.
+
+
+## Steps to Reproduce (might not work anymore with Svelte4 and ipfs@0.18.0)
 
 - Install SvelteKit
 
